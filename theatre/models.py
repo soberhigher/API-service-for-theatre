@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -39,8 +38,8 @@ class Genre(models.Model):
 
 class TheatreHall(models.Model):
     name = models.CharField(max_length=100)
-    rows = models.IntegerField()
-    seats_in_row = models.IntegerField()
+    rows = models.PositiveIntegerField()
+    seats_in_row = models.PositiveIntegerField()
 
     class Meta:
         ordering = ["name"]
@@ -58,3 +57,37 @@ class Reservation(models.Model):
 
     def __str__(self):
         return f"Reservation {self.created_at} from {self.user}"
+
+
+class Performance(models.Model):
+    play = models.ForeignKey(
+        Play, on_delete=models.CASCADE, related_name="performances"
+    )
+    theatre_hall = models.ForeignKey(
+        TheatreHall, on_delete=models.CASCADE, related_name="performances"
+    )
+    show_time = models.DateTimeField()
+
+    class Meta:
+        ordering = ["-show_time"]
+
+    def __str__(self):
+        return f"{self.play} in {self.theatre_hall} at {self.show_time}"
+
+
+class Ticket(models.Model):
+    row = models.PositiveIntegerField()
+    seat = models.PositiveIntegerField()
+    performance = models.ForeignKey(
+        Performance, on_delete=models.CASCADE, related_name="tickets"
+    )
+    reservation = models.ForeignKey(
+        Reservation, on_delete=models.CASCADE, related_name="tickets"
+    )
+
+    class Meta:
+        ordering = ["row", "seat"]
+        unique_together = ["performance", "row", "seat"]
+
+    def __str__(self):
+        return f"Reservation {self.reservation} on {self.performance} for {self.row} row {self.seat} seat"
