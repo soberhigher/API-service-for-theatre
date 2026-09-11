@@ -1,0 +1,12 @@
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+.idea/
+.vscode/
+*.sqlite3
+db.sqlite3
+.env
+AGENT.md
