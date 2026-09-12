@@ -6,7 +6,7 @@ from theatre.models import (Play,
                             Actor,
                             Genre,
                             TheatreHall,
-                            Performance
+                            Performance, Reservation
                             )
 
 from django.contrib.auth.models import User
@@ -103,3 +103,10 @@ class PerformanceWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Performance
         fields = "__all__"
+
+
+class ReservationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Reservation
+        fields = "__all__"
+        read_only_fields = ["id", "created_at", "user"]
