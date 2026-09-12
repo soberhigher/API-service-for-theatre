@@ -1,6 +1,60 @@
+from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 
-from theatre.models import Play, Actor, Genre, TheatreHall, Performance
+from theatre.models import (Play,
+                            Actor,
+                            Genre,
+                            TheatreHall,
+                            Performance
+                            )
+
+from django.contrib.auth.models import User
+
+
+class RegistrationSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(max_length=32,
+                                     validators=[UniqueValidator(queryset=User.objects.all())])
+    email = serializers.EmailField(required=True)
+    password = serializers.CharField(min_length=8, max_length=50, write_only=True)
+    confirm_password = serializers.CharField(min_length=8, max_length=50, write_only=True)
+    date_joined = serializers.DateTimeField(read_only=True)
+
+    class Meta:
+        model = User
+        fields = ["id", "username", "email", "password", "confirm_password"]
+
+    def create(self, validated_data):
+        validated_data.pop("confirm_password")
+
+        return User.objects.create_user(
+            username=validated_data["username"],
+            email=validated_data["email"],
+            password=validated_data["password"],
+        )
+
+    def validate(self, attrs):
+        if attrs["password"] != attrs["confirm_password"]:
+            raise serializers.ValidationError(
+                {"confirm_password": "Passwords do not match"}
+            )
+        validate_password(
+            attrs["password"],
+            user=User(username=attrs["username"])
+        )
+
+        return attrs
+
+    def validate_email(self, value):
+        value = value.strip().lower()
+
+        if User.objects.filter(email__iexact=value).exists():
+            raise serializers.ValidationError(
+                "A user with this email already exists."
+            )
+
+        return value
+
 
 
 class ActorSerializer(serializers.ModelSerializer):
@@ -46,7 +100,6 @@ class PerformanceReadSerializer(serializers.ModelSerializer):
 
 
 class PerformanceWriteSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Performance
         fields = "__all__"
