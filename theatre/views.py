@@ -1,12 +1,14 @@
 from rest_framework import viewsets
 from rest_framework.generics import CreateAPIView
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import (AllowAny,
+                                        IsAuthenticated)
 
 from theatre.models import (Play,
                             Actor,
                             Genre,
                             TheatreHall,
-                            Performance, Reservation
+                            Performance,
+                            Reservation
                             )
 from theatre.permissions import IsAdminOrReadOnly
 from theatre.serializers import (PlayReadSerializer,
@@ -16,7 +18,8 @@ from theatre.serializers import (PlayReadSerializer,
                                  TheatreHallSerializer,
                                  PerformanceReadSerializer,
                                  PerformanceWriteSerializer,
-                                 RegistrationSerializer, ReservationSerializer
+                                 RegistrationSerializer,
+                                 ReservationSerializer
                                  )
 
 
@@ -66,6 +69,7 @@ class PerformanceViewSet(viewsets.ModelViewSet):
 class ReservationViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = ReservationSerializer
+    queryset = Reservation.objects.all()
 
     def get_queryset(self):
         return Reservation.objects.filter(user=self.request.user)
