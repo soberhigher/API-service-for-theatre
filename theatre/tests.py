@@ -7,7 +7,8 @@ from rest_framework.test import APITestCase
 from theatre.models import (Actor,
                             Genre,
                             Play,
-                            TheatreHall
+                            TheatreHall,
+                            Performance
                             )
 
 
@@ -72,7 +73,6 @@ class TheatreHallTests(APITestCase):
         url = reverse("theatrehall-list")
         response = self.client.get(url)
         res = response.data["results"]
-
         theatrehall_data = res[0]
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -95,3 +95,48 @@ class TheatreHallTests(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(TheatreHall.objects.count(), 2)
+
+
+class PerformanceTests(APITestCase):
+    def setUp(self):
+        self.play = Play.objects.create(title="Big Ben",
+                                        description="Show about Big Ben")
+        self.theatre_hall = TheatreHall.objects.create(name="Big Hall",
+                                                       rows=11,
+                                                       seats_in_row=20)
+        self.performance = Performance.objects.create(play=self.play,
+                                                      theatre_hall=self.theatre_hall,
+                                                      show_time="2026-09-20T11:50:00Z")
+
+    def test_anonymous_user_can_get_performance(self):
+        url = reverse("performance-list")
+        response = self.client.get(url)
+        res = response.data["results"]
+        play_data = res[0]["play"]
+        theatre_hall = res[0]["theatre_hall"]
+        performance_data = res[0]
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(play_data["title"], "Big Ben")
+        self.assertEqual(play_data["description"], "Show about Big Ben")
+        self.assertEqual(theatre_hall["name"], "Big Hall")
+        self.assertEqual(theatre_hall["rows"], 11)
+        self.assertEqual(theatre_hall["seats_in_row"], 20)
+        self.assertEqual(performance_data["show_time"], "2026-09-20T11:50:00Z")
+
+    def test_staff_can_post_performance(self):
+        url = reverse("performance-list")
+        user = get_user_model()
+        staff_user = user.objects.create_superuser(username="admin",
+                                                   password="admin")
+        self.client.force_authenticate(user=staff_user)
+
+        data = {
+            "play": self.play.id,
+            "theatre_hall": self.theatre_hall.id,
+            "show_time": "2026-09-20T11:50:00Z",
+        }
+        response = self.client.post(url, data)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Performance.objects.count(), 2)
