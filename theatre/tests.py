@@ -4,9 +4,11 @@ from rest_framework.reverse import reverse
 
 from rest_framework.test import APITestCase
 
-from theatre.models import Actor, Genre, Play
-
-
+from theatre.models import (Actor,
+                            Genre,
+                            Play,
+                            TheatreHall
+                            )
 
 
 class ActorGenrePlayTests(APITestCase):
@@ -38,7 +40,6 @@ class ActorGenrePlayTests(APITestCase):
     def test_staff_can_post_plays(self):
         url = reverse("play-list")
         user = get_user_model()
-
         staff_user = user.objects.create_user(username="admin",
                                               password="admin",
                                               is_staff=True)
@@ -60,5 +61,37 @@ class ActorGenrePlayTests(APITestCase):
         self.assertIn(self.genre, created_play.genres.all())
 
 
+class TheatreHallTests(APITestCase):
 
+    def setUp(self):
+        self.theatrehall = TheatreHall.objects.create(name="City Big Hall",
+                                                      rows=14,
+                                                      seats_in_row=20)
 
+    def test_anonymous_user_can_get_theatrehall(self):
+        url = reverse("theatrehall-list")
+        response = self.client.get(url)
+        res = response.data["results"]
+
+        theatrehall_data = res[0]
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(theatrehall_data["name"], "City Big Hall")
+        self.assertEqual(theatrehall_data["rows"], 14)
+        self.assertEqual(theatrehall_data["seats_in_row"], 20)
+
+    def test_staff_can_post_theatrehalls(self):
+        url = reverse("theatrehall-list")
+        user = get_user_model()
+        staff_user = user.objects.create_user(username="admin", password="admin", is_staff=True)
+        self.client.force_authenticate(user=staff_user)
+
+        data = {
+            "name": "City Big Hall",
+            "rows": 11,
+            "seats_in_row": 15,
+        }
+        response = self.client.post(url, data)
+
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(TheatreHall.objects.count(), 2)
