@@ -1,0 +1,129 @@
+[
+  {
+    "model": "theatre.actor",
+    "pk": 1,
+    "fields": {
+      "first_name": "Leonardo",
+      "last_name": "Carter"
+    }
+  },
+  {
+    "model": "theatre.actor",
+    "pk": 2,
+    "fields": {
+      "first_name": "Emma",
+      "last_name": "Watson"
+    }
+  },
+  {
+    "model": "theatre.actor",
+    "pk": 3,
+    "fields": {
+      "first_name": "Daniel",
+      "last_name": "Morgan"
+    }
+  },
+  {
+    "model": "theatre.actor",
+    "pk": 4,
+    "fields": {
+      "first_name": "Sophia",
+      "last_name": "Bennett"
+    }
+  },
+  {
+    "model": "theatre.actor",
+    "pk": 5,
+    "fields": {
+      "first_name": "James",
+      "last_name": "Wilson"
+    }
+  },
+
+  {
+    "model": "theatre.genre",
+    "pk": 1,
+    "fields": {
+      "name": "Drama"
+    }
+  },
+  {
+    "model": "theatre.genre",
+    "pk": 2,
+    "fields": {
+      "name": "Comedy"
+    }
+  },
+  {
+    "model": "theatre.genre",
+    "pk": 3,
+    "fields": {
+      "name": "Tragedy"
+    }
+  },
+  {
+    "model": "theatre.genre",
+    "pk": 4,
+    "fields": {
+      "name": "Musical"
+    }
+  },
+  {
+    "model": "theatre.genre",
+    "pk": 5,
+    "fields": {
+      "name": "Romance"
+    }
+  },
+
+  {
+    "model": "theatre.play",
+    "pk": 1,
+    "fields": {
+      "title": "Hamlet",
+      "description": "A young prince struggles with revenge, betrayal and the mystery surrounding his father's death.",
+      "actors": [1, 2, 3],
+      "genres": [1, 3]
+    }
+  },
+  {
+    "model": "theatre.play",
+    "pk": 2,
+    "fields": {
+      "title": "The Last Letter",
+      "description": "A dramatic story about love, loss and a letter that changes the lives of two people.",
+      "actors": [2, 4],
+      "genres": [1, 5]
+    }
+  },
+  {
+    "model": "theatre.play",
+    "pk": 3,
+    "fields": {
+      "title": "A Night in London",
+      "description": "A group of strangers meets during one unusual night in London.",
+      "actors": [1, 3, 5],
+      "genres": [2]
+    }
+  },
+  {
+    "model": "theatre.play",
+    "pk": 4,
+    "fields": {
+      "title": "The Golden Mask",
+      "description": "A mysterious musical about ambition, secrets and the price of fame.",
+      "actors": [3, 4, 5],
+      "genres": [4, 1]
+    }
+  },
+  {
+    "model": "theatre.play",
+    "pk": 5,
+    "fields": {
+      "title": "Before Sunrise",
+      "description": "Two old friends meet again and confront the choices that separated them years ago.",
+      "actors": [1, 2, 4],
+      "genres": [5, 1]
+    }
+  }
+]
