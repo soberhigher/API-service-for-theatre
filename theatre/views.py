@@ -2,13 +2,14 @@ from rest_framework import viewsets
 
 from theatre.models import (Play,
                             Actor,
-                            Genre
+                            Genre, TheatreHall
                             )
 from theatre.permissions import IsAdminOrReadOnly
 from theatre.serializers import (PlayReadSerializer,
                                  PlayWriteSerializer,
                                  ActorSerializer,
-                                 GenreSerializer
+                                 GenreSerializer,
+                                 TheatreHallSerializer
                                  )
 
 
@@ -33,3 +34,9 @@ class GenreViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminOrReadOnly]
     serializer_class = GenreSerializer
     queryset = Genre.objects.all()
+
+
+class TheatreHallViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAdminOrReadOnly]
+    serializer_class = TheatreHallSerializer
+    queryset = TheatreHall.objects.all()
