@@ -1,4 +1,6 @@
 from rest_framework import viewsets
+from rest_framework.generics import CreateAPIView
+from rest_framework.permissions import AllowAny
 
 from theatre.models import (Play,
                             Actor,
@@ -13,8 +15,14 @@ from theatre.serializers import (PlayReadSerializer,
                                  GenreSerializer,
                                  TheatreHallSerializer,
                                  PerformanceReadSerializer,
-                                 PerformanceWriteSerializer
+                                 PerformanceWriteSerializer,
+                                 RegistrationSerializer
                                  )
+
+
+class RegistrationView(CreateAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = RegistrationSerializer
 
 
 class PlayViewSet(viewsets.ModelViewSet):
