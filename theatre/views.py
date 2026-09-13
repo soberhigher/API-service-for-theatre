@@ -90,7 +90,12 @@ class TicketViewSet(viewsets.ModelViewSet):
             raise serializers.ValidationError(
                 "Ticket cannot be cancelled after the performance has started"
             )
+
+        reservation = instance.reservation
         instance.delete()
+
+        if not reservation.tickets.exists():
+            reservation.delete()
 
     def update(self, request, *args, **kwargs):
         raise MethodNotAllowed("PUT")
