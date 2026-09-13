@@ -107,12 +107,36 @@ class PerformanceWriteSerializer(serializers.ModelSerializer):
         model = Performance
         fields = "__all__"
 
+    def validate(self, attrs):
+        theatre_hall = attrs.get(
+            "theatre_hall",
+            self.instance.theatre_hall if self.instance else None,
+        )
+        show_time = attrs.get(
+            "show_time",
+            self.instance.show_time if self.instance else None,
+        )
+
+        performances = Performance.objects.filter(
+            theatre_hall=theatre_hall,
+            show_time=show_time,
+        )
+
+        if self.instance:
+            performances = performances.exclude(pk=self.instance.pk)
+
+        if performances.exists():
+            raise serializers.ValidationError(
+                "This theatre hall is already occupied at this time."
+            )
+
+        return attrs
+
 
 class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
-        fields = "__all__"
-        read_only_fields = ["id", "reservation"]
+        fields = ["id", "row", "seat", "performance"]
 
 
 class TicketPurchaseSerializer(serializers.Serializer):
