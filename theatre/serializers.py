@@ -162,7 +162,7 @@ class TicketPurchaseSerializer(serializers.Serializer):
     @transaction.atomic
     def create(self, validated_data):
         tickets_data = validated_data.pop("tickets")
-        user = validated_data["user"]
+        user = validated_data.get("user")
 
         reservation = Reservation.objects.create(user=user)
 
@@ -176,67 +176,7 @@ class TicketPurchaseSerializer(serializers.Serializer):
 
         return created_tickets
 
-
-class ReservationSerializer(serializers.ModelSerializer):
-    tickets = TicketSerializer(many=True)
-
-    class Meta:
-        model = Reservation
-        fields = ["id", "created_at", "user", "tickets"]
-        read_only_fields = ["id", "created_at", "user"]
-
-    def validate_tickets(self, tickets):
-        if not tickets:
-            raise serializers.ValidationError(
-                "Reservation must contain at least one ticket"
-            )
-        selected_places = set()
-
-        for ticket in tickets:
-            performance = ticket["performance"]
-            row = ticket["row"]
-            seat = ticket["seat"]
-            hall = performance.theatre_hall
-
-            place = (performance.id, row, seat)
-
-            if Ticket.objects.filter(
-                performance=performance,
-                row=row,
-                seat=seat
-            ).exists():
-                raise serializers.ValidationError(
-                    "This seat is already reserved"
-                )
-
-            if place in selected_places:
-                raise serializers.ValidationError(
-                    "The same seat cannot be selected more than once."
-                )
-            selected_places.add(place)
-
-            if row < 1 or row > hall.rows:
-                raise serializers.ValidationError(
-                    f"Row must be between 1 and {hall.rows}"
-                )
-            if seat < 1 or seat > hall.seats_in_row:
-                raise serializers.ValidationError(
-                    f"Seat must be between 1 and {hall.seats_in_row}."
-                )
-
-        return tickets
-
-    @transaction.atomic
-    def create(self, validated_data):
-        tickets_data = validated_data.pop("tickets")
-
-        reservation = Reservation.objects.create(
-            **validated_data,
-        )
-
-        for ticket_data in tickets_data:
-            Ticket.objects.create(
-                reservation=reservation,
-                **ticket_data,
-            )
-        return reservation
+    def to_representation(self, instance):
+        return {
+            "tickets": TicketSerializer(instance, many=True).data
+        }
