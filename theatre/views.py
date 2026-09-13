@@ -10,7 +10,7 @@ from theatre.models import (Play,
                             Genre,
                             TheatreHall,
                             Performance,
-                            Reservation, Ticket
+                            Ticket
                             )
 from theatre.permissions import IsAdminOrReadOnly
 from theatre.serializers import (PlayReadSerializer,
@@ -18,11 +18,11 @@ from theatre.serializers import (PlayReadSerializer,
                                  ActorSerializer,
                                  GenreSerializer,
                                  TheatreHallSerializer,
-                                 PerformanceReadSerializer,
-                                 PerformanceWriteSerializer,
-                                 RegistrationSerializer,
-                                 ReservationSerializer, TicketSerializer, TicketPurchaseSerializer
-                                 )
+    PerformanceReadSerializer,
+                                  PerformanceWriteSerializer,
+                                  RegistrationSerializer,
+                                  TicketSerializer, TicketPurchaseSerializer
+                                  )
 
 
 class RegistrationView(CreateAPIView):
@@ -66,37 +66,6 @@ class PerformanceViewSet(viewsets.ModelViewSet):
         if self.action in ("list", "retrieve"):
             return PerformanceReadSerializer
         return PerformanceWriteSerializer
-
-
-class ReservationViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
-    serializer_class = ReservationSerializer
-    queryset = Reservation.objects.all()
-
-    def get_queryset(self):
-        return Reservation.objects.filter(user=self.request.user)
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
-
-    def perform_destroy(self, instance):
-        current_time = timezone.now()
-
-        has_started_performance = instance.tickets.filter(
-            performance__show_time__lte=current_time
-        ).exists()
-
-        if has_started_performance:
-            raise serializers.ValidationError(
-                "Reservation cannot be cancelled after it has started"
-            )
-        instance.delete()
-
-    def update(self, request, *args, **kwargs):
-        raise MethodNotAllowed("PUT")
-
-    def partial_update(self, request, *args, **kwargs):
-        raise MethodNotAllowed("PATCH")
 
 
 class TicketViewSet(viewsets.ModelViewSet):
