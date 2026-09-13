@@ -101,4 +101,4 @@ class TicketViewSet(viewsets.ModelViewSet):
         raise MethodNotAllowed("PUT")
 
     def partial_update(self, request, *args, **kwargs):
-        raise MethodNotAllowed
+        raise MethodNotAllowed("PATCH")
