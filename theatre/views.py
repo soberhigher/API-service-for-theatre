@@ -1,7 +1,9 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, serializers
+from rest_framework.exceptions import MethodNotAllowed
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import (AllowAny,
                                         IsAuthenticated)
+from django.utils import timezone
 
 from theatre.models import (Play,
                             Actor,
@@ -76,3 +78,22 @@ class ReservationViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+    def perform_destroy(self, instance):
+        current_time = timezone.now()
+
+        has_started_performance = instance.tickets.filter(
+            performance__show_time__lte=current_time
+        ).exists()
+
+        if has_started_performance:
+            raise serializers.ValidationError(
+                "Reservation cannot be cancelled after it has started"
+            )
+        instance.delete()
+
+    def update(self, request, *args, **kwargs):
+        raise MethodNotAllowed("PUT")
+
+    def partial_update(self, request, *args, **kwargs):
+        raise MethodNotAllowed("PATCH")
