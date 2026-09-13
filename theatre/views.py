@@ -62,6 +62,21 @@ class PerformanceViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminOrReadOnly]
     queryset = Performance.objects.all()
 
+    def get_queryset(self):
+        queryset = Performance.objects.all()
+        play_id = self.request.query_params.get("play")
+        theatre_hall_id = self.request.query_params.get("theatre_hall")
+        show_date = self.request.query_params.get("date")
+
+        if play_id:
+            queryset = queryset.filter(play_id=play_id)
+        if theatre_hall_id:
+            queryset = queryset.filter(theatre_hall_id=theatre_hall_id)
+        if show_date:
+            queryset = queryset.filter(show_time__date=show_date)
+
+        return queryset
+
     def get_serializer_class(self):
         if self.action in ("list", "retrieve"):
             return PerformanceReadSerializer
