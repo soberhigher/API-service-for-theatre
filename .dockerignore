@@ -1,0 +1,12 @@
+.git/
+.idea/
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.sqlite3
+.env
+README.md
+AGENT.md
