@@ -93,13 +93,27 @@ class PerformanceViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = Performance.objects.all()
         play_id = self.request.query_params.get("play")
+
+        if play_id:
+            try:
+                play_id = [int(id) for id in play_id.split(",")]
+            except ValueError:
+                raise ValidationError("Invalid play ID format")
+
         theatre_hall_id = self.request.query_params.get("theatre_hall")
+
+        if theatre_hall_id:
+            try:
+                theatre_hall_id = [int(id) for id in theatre_hall_id.split(",")]
+            except ValueError:
+                raise ValidationError("Invalid theatre hall ID format")
+
         show_date = self.request.query_params.get("date")
 
         if play_id:
-            queryset = queryset.filter(play_id=play_id)
+            queryset = queryset.filter(play_id__in=play_id)
         if theatre_hall_id:
-            queryset = queryset.filter(theatre_hall_id=theatre_hall_id)
+            queryset = queryset.filter(theatre_hall_id__in=theatre_hall_id)
         if show_date:
             queryset = queryset.filter(show_time__date=show_date)
 
