@@ -3,14 +3,15 @@ from django.db import transaction
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 
-from theatre.models import (Play,
-                            Actor,
-                            Genre,
-                            TheatreHall,
-                            Performance,
-                            Reservation,
-                            Ticket,
-                            )
+from theatre.models import (
+    Play,
+    Actor,
+    Genre,
+    TheatreHall,
+    Performance,
+    Reservation,
+    Ticket,
+)
 
 from django.contrib.auth.models import User
 

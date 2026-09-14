@@ -1,13 +1,14 @@
 from django.contrib import admin
 
-from theatre.models import (Play,
-                            Actor,
-                            Genre,
-                            TheatreHall,
-                            Reservation,
-                            Performance,
-                            Ticket,
-                            )
+from theatre.models import (
+    Actor,
+    Genre,
+    Performance,
+    Play,
+    Reservation,
+    TheatreHall,
+    Ticket,
+)
 
 admin.site.register(Play)
 admin.site.register(Actor)

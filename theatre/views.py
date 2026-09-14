@@ -1,35 +1,41 @@
 from datetime import datetime
 
-from rest_framework import (viewsets,
-                            serializers,
-                            )
-from rest_framework.exceptions import (MethodNotAllowed,
-                                       ValidationError,
-                                       )
+from rest_framework import (
+    serializers,
+    viewsets,
+)
+from rest_framework.exceptions import (
+    MethodNotAllowed,
+    ValidationError,
+)
 from rest_framework.generics import CreateAPIView
-from rest_framework.permissions import (AllowAny,
-                                        IsAuthenticated)
+from rest_framework.permissions import (
+    AllowAny,
+    IsAuthenticated,
+)
 from django.utils import timezone
 
-from theatre.models import (Play,
-                            Actor,
-                            Genre,
-                            TheatreHall,
-                            Performance,
-                            Ticket,
-                            )
+from theatre.models import (
+    Actor,
+    Genre,
+    Performance,
+    Play,
+    TheatreHall,
+    Ticket,
+)
 from theatre.permissions import IsAdminOrReadOnly
-from theatre.serializers import (PlayReadSerializer,
-                                 PlayWriteSerializer,
-                                 ActorSerializer,
-                                 GenreSerializer,
-                                 TheatreHallSerializer,
-                                 PerformanceReadSerializer,
-                                 PerformanceWriteSerializer,
-                                 RegistrationSerializer,
-                                 TicketSerializer,
-                                 TicketPurchaseSerializer,
-                                  )
+from theatre.serializers import (
+    ActorSerializer,
+    GenreSerializer,
+    PerformanceReadSerializer,
+    PerformanceWriteSerializer,
+    PlayReadSerializer,
+    PlayWriteSerializer,
+    RegistrationSerializer,
+    TheatreHallSerializer,
+    TicketPurchaseSerializer,
+    TicketSerializer,
+)
 
 
 class RegistrationView(CreateAPIView):
