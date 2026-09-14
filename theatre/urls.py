@@ -4,8 +4,8 @@ from rest_framework.routers import DefaultRouter
 from theatre.views import (PlayViewSet,
                            ActorViewSet,
                            GenreViewSet,
-    TheatreHallViewSet,
-    PerformanceViewSet,
+                           TheatreHallViewSet,
+                           PerformanceViewSet,
                             TicketViewSet
                            )
 

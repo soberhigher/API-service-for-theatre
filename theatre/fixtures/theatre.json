@@ -1,129 +1,479 @@
 [
   {
     "model": "theatre.actor",
-    "pk": 1,
+    "pk": 6,
     "fields": {
-      "first_name": "Leonardo",
-      "last_name": "Carter"
+      "first_name": "Oliver",
+      "last_name": "Brown"
     }
   },
   {
     "model": "theatre.actor",
-    "pk": 2,
+    "pk": 7,
     "fields": {
-      "first_name": "Emma",
-      "last_name": "Watson"
+      "first_name": "Mia",
+      "last_name": "Taylor"
     }
   },
   {
     "model": "theatre.actor",
-    "pk": 3,
+    "pk": 8,
     "fields": {
-      "first_name": "Daniel",
-      "last_name": "Morgan"
+      "first_name": "William",
+      "last_name": "Anderson"
     }
   },
   {
     "model": "theatre.actor",
-    "pk": 4,
+    "pk": 9,
     "fields": {
-      "first_name": "Sophia",
-      "last_name": "Bennett"
+      "first_name": "Isabella",
+      "last_name": "Thomas"
     }
   },
   {
     "model": "theatre.actor",
-    "pk": 5,
+    "pk": 10,
     "fields": {
-      "first_name": "James",
-      "last_name": "Wilson"
+      "first_name": "Henry",
+      "last_name": "Jackson"
+    }
+  },
+  {
+    "model": "theatre.actor",
+    "pk": 11,
+    "fields": {
+      "first_name": "Amelia",
+      "last_name": "White"
+    }
+  },
+  {
+    "model": "theatre.actor",
+    "pk": 12,
+    "fields": {
+      "first_name": "Jack",
+      "last_name": "Harris"
+    }
+  },
+  {
+    "model": "theatre.actor",
+    "pk": 13,
+    "fields": {
+      "first_name": "Charlotte",
+      "last_name": "Martin"
+    }
+  },
+  {
+    "model": "theatre.actor",
+    "pk": 14,
+    "fields": {
+      "first_name": "Thomas",
+      "last_name": "Thompson"
+    }
+  },
+  {
+    "model": "theatre.actor",
+    "pk": 15,
+    "fields": {
+      "first_name": "Grace",
+      "last_name": "Robinson"
+    }
+  },
+  {
+    "model": "theatre.actor",
+    "pk": 16,
+    "fields": {
+      "first_name": "Alexander",
+      "last_name": "Clark"
     }
   },
 
   {
     "model": "theatre.genre",
-    "pk": 1,
+    "pk": 6,
     "fields": {
-      "name": "Drama"
+      "name": "Thriller"
     }
   },
   {
     "model": "theatre.genre",
-    "pk": 2,
+    "pk": 7,
     "fields": {
-      "name": "Comedy"
+      "name": "Mystery"
     }
   },
   {
     "model": "theatre.genre",
-    "pk": 3,
+    "pk": 8,
     "fields": {
-      "name": "Tragedy"
+      "name": "Historical"
     }
   },
   {
     "model": "theatre.genre",
-    "pk": 4,
+    "pk": 9,
     "fields": {
-      "name": "Musical"
+      "name": "Fantasy"
     }
   },
   {
     "model": "theatre.genre",
-    "pk": 5,
+    "pk": 10,
     "fields": {
-      "name": "Romance"
+      "name": "Adventure"
+    }
+  },
+  {
+    "model": "theatre.genre",
+    "pk": 11,
+    "fields": {
+      "name": "Satire"
+    }
+  },
+  {
+    "model": "theatre.genre",
+    "pk": 12,
+    "fields": {
+      "name": "Crime"
+    }
+  },
+  {
+    "model": "theatre.genre",
+    "pk": 13,
+    "fields": {
+      "name": "Psychological"
+    }
+  },
+  {
+    "model": "theatre.genre",
+    "pk": 14,
+    "fields": {
+      "name": "Historical Drama"
+    }
+  },
+  {
+    "model": "theatre.genre",
+    "pk": 15,
+    "fields": {
+      "name": "Family"
+    }
+  },
+  {
+    "model": "theatre.genre",
+    "pk": 16,
+    "fields": {
+      "name": "Absurdist"
     }
   },
 
   {
     "model": "theatre.play",
+    "pk": 6,
+    "fields": {
+      "title": "The Silent Room",
+      "description": "A psychological drama about secrets hidden inside an old family house.",
+      "actors": [6, 7, 8],
+      "genres": [6, 13]
+    }
+  },
+  {
+    "model": "theatre.play",
+    "pk": 7,
+    "fields": {
+      "title": "The Missing Key",
+      "description": "A detective story begins when a mysterious key is discovered after a disappearance.",
+      "actors": [9, 10, 11],
+      "genres": [7, 12]
+    }
+  },
+  {
+    "model": "theatre.play",
+    "pk": 8,
+    "fields": {
+      "title": "The King's Shadow",
+      "description": "A historical drama about power, loyalty and betrayal in a royal court.",
+      "actors": [6, 8, 12],
+      "genres": [8, 14]
+    }
+  },
+  {
+    "model": "theatre.play",
+    "pk": 9,
+    "fields": {
+      "title": "The Enchanted Forest",
+      "description": "A young traveler enters a magical forest and discovers a forgotten kingdom.",
+      "actors": [7, 13, 16],
+      "genres": [9, 10]
+    }
+  },
+  {
+    "model": "theatre.play",
+    "pk": 10,
+    "fields": {
+      "title": "A Dangerous Game",
+      "description": "A group of wealthy strangers becomes involved in a game where everyone has something to hide.",
+      "actors": [8, 10, 14],
+      "genres": [6, 12]
+    }
+  },
+  {
+    "model": "theatre.play",
+    "pk": 11,
+    "fields": {
+      "title": "The Great Journey",
+      "description": "An adventurous journey across unknown lands changes the lives of three companions.",
+      "actors": [9, 12, 15],
+      "genres": [10]
+    }
+  },
+  {
+    "model": "theatre.play",
+    "pk": 12,
+    "fields": {
+      "title": "The Fool's Crown",
+      "description": "A satirical comedy about politics, ambition and an unexpected ruler.",
+      "actors": [6, 11, 14],
+      "genres": [11]
+    }
+  },
+  {
+    "model": "theatre.play",
+    "pk": 13,
+    "fields": {
+      "title": "Behind the Curtain",
+      "description": "A mysterious story about actors who discover something strange backstage.",
+      "actors": [7, 10, 13],
+      "genres": [7, 6]
+    }
+  },
+  {
+    "model": "theatre.play",
+    "pk": 14,
+    "fields": {
+      "title": "The Family Tree",
+      "description": "Three generations reunite and uncover an unexpected secret about their family.",
+      "actors": [8, 11, 15],
+      "genres": [15, 6]
+    }
+  },
+  {
+    "model": "theatre.play",
+    "pk": 15,
+    "fields": {
+      "title": "The Empty House",
+      "description": "A detective investigates an abandoned house connected to an unsolved crime.",
+      "actors": [9, 12, 16],
+      "genres": [7, 12]
+    }
+  },
+  {
+    "model": "theatre.play",
+    "pk": 16,
+    "fields": {
+      "title": "Waiting for Tomorrow",
+      "description": "Four strangers wait in a strange room while trying to understand why they are there.",
+      "actors": [10, 13, 14],
+      "genres": [16, 13]
+    }
+  },
+
+  {
+    "model": "theatre.theatrehall",
     "pk": 1,
     "fields": {
-      "title": "Hamlet",
-      "description": "A young prince struggles with revenge, betrayal and the mystery surrounding his father's death.",
-      "actors": [1, 2, 3],
-      "genres": [1, 3]
+      "name": "Main Hall",
+      "rows": 20,
+      "seats_in_row": 30
     }
   },
   {
-    "model": "theatre.play",
+    "model": "theatre.theatrehall",
     "pk": 2,
     "fields": {
-      "title": "The Last Letter",
-      "description": "A dramatic story about love, loss and a letter that changes the lives of two people.",
-      "actors": [2, 4],
-      "genres": [1, 5]
+      "name": "Grand Hall",
+      "rows": 25,
+      "seats_in_row": 32
     }
   },
   {
-    "model": "theatre.play",
+    "model": "theatre.theatrehall",
     "pk": 3,
     "fields": {
-      "title": "A Night in London",
-      "description": "A group of strangers meets during one unusual night in London.",
-      "actors": [1, 3, 5],
-      "genres": [2]
+      "name": "Small Hall",
+      "rows": 10,
+      "seats_in_row": 20
     }
   },
   {
-    "model": "theatre.play",
+    "model": "theatre.theatrehall",
     "pk": 4,
     "fields": {
-      "title": "The Golden Mask",
-      "description": "A mysterious musical about ambition, secrets and the price of fame.",
-      "actors": [3, 4, 5],
-      "genres": [4, 1]
+      "name": "Royal Hall",
+      "rows": 18,
+      "seats_in_row": 28
     }
   },
   {
-    "model": "theatre.play",
+    "model": "theatre.theatrehall",
     "pk": 5,
     "fields": {
-      "title": "Before Sunrise",
-      "description": "Two old friends meet again and confront the choices that separated them years ago.",
-      "actors": [1, 2, 4],
-      "genres": [5, 1]
+      "name": "Drama Hall",
+      "rows": 15,
+      "seats_in_row": 24
+    }
+  },
+  {
+    "model": "theatre.theatrehall",
+    "pk": 6,
+    "fields": {
+      "name": "Studio Hall",
+      "rows": 8,
+      "seats_in_row": 18
+    }
+  },
+  {
+    "model": "theatre.theatrehall",
+    "pk": 7,
+    "fields": {
+      "name": "Opera Hall",
+      "rows": 22,
+      "seats_in_row": 35
+    }
+  },
+  {
+    "model": "theatre.theatrehall",
+    "pk": 8,
+    "fields": {
+      "name": "Garden Hall",
+      "rows": 12,
+      "seats_in_row": 22
+    }
+  },
+  {
+    "model": "theatre.theatrehall",
+    "pk": 9,
+    "fields": {
+      "name": "Central Hall",
+      "rows": 20,
+      "seats_in_row": 26
+    }
+  },
+  {
+    "model": "theatre.theatrehall",
+    "pk": 10,
+    "fields": {
+      "name": "Classic Hall",
+      "rows": 16,
+      "seats_in_row": 25
+    }
+  },
+  {
+    "model": "theatre.theatrehall",
+    "pk": 11,
+    "fields": {
+      "name": "City Hall",
+      "rows": 14,
+      "seats_in_row": 20
+    }
+  },
+
+  {
+    "model": "theatre.performance",
+    "pk": 1,
+    "fields": {
+      "play": 6,
+      "theatre_hall": 1,
+      "show_time": "2026-09-15T19:00:00Z"
+    }
+  },
+  {
+    "model": "theatre.performance",
+    "pk": 2,
+    "fields": {
+      "play": 7,
+      "theatre_hall": 2,
+      "show_time": "2026-09-16T18:30:00Z"
+    }
+  },
+  {
+    "model": "theatre.performance",
+    "pk": 3,
+    "fields": {
+      "play": 8,
+      "theatre_hall": 3,
+      "show_time": "2026-09-17T20:00:00Z"
+    }
+  },
+  {
+    "model": "theatre.performance",
+    "pk": 4,
+    "fields": {
+      "play": 9,
+      "theatre_hall": 4,
+      "show_time": "2026-09-18T19:30:00Z"
+    }
+  },
+  {
+    "model": "theatre.performance",
+    "pk": 5,
+    "fields": {
+      "play": 10,
+      "theatre_hall": 5,
+      "show_time": "2026-09-19T21:00:00Z"
+    }
+  },
+  {
+    "model": "theatre.performance",
+    "pk": 6,
+    "fields": {
+      "play": 11,
+      "theatre_hall": 6,
+      "show_time": "2026-09-20T17:00:00Z"
+    }
+  },
+  {
+    "model": "theatre.performance",
+    "pk": 7,
+    "fields": {
+      "play": 12,
+      "theatre_hall": 7,
+      "show_time": "2026-09-21T19:00:00Z"
+    }
+  },
+  {
+    "model": "theatre.performance",
+    "pk": 8,
+    "fields": {
+      "play": 13,
+      "theatre_hall": 8,
+      "show_time": "2026-09-22T18:00:00Z"
+    }
+  },
+  {
+    "model": "theatre.performance",
+    "pk": 9,
+    "fields": {
+      "play": 14,
+      "theatre_hall": 9,
+      "show_time": "2026-09-23T20:30:00Z"
+    }
+  },
+  {
+    "model": "theatre.performance",
+    "pk": 10,
+    "fields": {
+      "play": 15,
+      "theatre_hall": 10,
+      "show_time": "2026-09-24T19:00:00Z"
+    }
+  },
+  {
+    "model": "theatre.performance",
+    "pk": 11,
+    "fields": {
+      "play": 16,
+      "theatre_hall": 11,
+      "show_time": "2026-09-25T21:30:00Z"
     }
   }
 ]
