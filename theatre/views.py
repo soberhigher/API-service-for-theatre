@@ -1,5 +1,5 @@
 from rest_framework import viewsets, serializers
-from rest_framework.exceptions import MethodNotAllowed
+from rest_framework.exceptions import MethodNotAllowed, ValidationError
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import (AllowAny,
                                         IsAuthenticated)
@@ -33,6 +33,34 @@ class RegistrationView(CreateAPIView):
 class PlayViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminOrReadOnly]
     queryset = Play.objects.all()
+
+    def get_queryset(self):
+        queryset = Play.objects.all()
+
+        title = self.request.query_params.get("title")
+
+        genres_id = self.request.query_params.get("genres")
+        if genres_id:
+            try:
+                genres_id = [int(id) for id in genres_id.split(",")]
+            except ValueError:
+                raise ValidationError("Invalid genre ID format")
+
+        actors_id = self.request.query_params.get("actors")
+        if actors_id:
+            try:
+                actors_id = [int(id) for id in actors_id.split(",")]
+            except ValueError:
+                raise ValidationError("Invalid actor ID format")
+
+        if title:
+            queryset = queryset.filter(title__icontains=title)
+        if genres_id:
+            queryset = queryset.filter(genres__id__in=genres_id).distinct()
+        if actors_id:
+            queryset = queryset.filter(actors__id__in=actors_id).distinct()
+
+        return queryset
 
     def get_serializer_class(self):
         if self.action in ("list", "retrieve"):
