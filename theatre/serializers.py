@@ -96,10 +96,16 @@ class TheatreHallSerializer(serializers.ModelSerializer):
 class PerformanceReadSerializer(serializers.ModelSerializer):
     theatre_hall = TheatreHallSerializer(read_only=True)
     play = PlayReadSerializer(read_only=True)
+    tickets_available = serializers.SerializerMethodField()
 
     class Meta:
         model = Performance
         fields = "__all__"
+
+    def get_tickets_available(self, obj):
+        hall_capacity = obj.theatre_hall.rows * obj.theatre_hall.seats_in_row
+        sold_tickets = obj.tickets.count()
+        return hall_capacity - sold_tickets
 
 
 class PerformanceWriteSerializer(serializers.ModelSerializer):
