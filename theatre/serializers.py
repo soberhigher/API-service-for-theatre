@@ -97,6 +97,7 @@ class PerformanceReadSerializer(serializers.ModelSerializer):
     theatre_hall = TheatreHallSerializer(read_only=True)
     play = PlayReadSerializer(read_only=True)
     tickets_available = serializers.SerializerMethodField()
+    taken_places = serializers.SerializerMethodField()
 
     class Meta:
         model = Performance
@@ -106,6 +107,10 @@ class PerformanceReadSerializer(serializers.ModelSerializer):
         hall_capacity = obj.theatre_hall.rows * obj.theatre_hall.seats_in_row
         sold_tickets = obj.tickets.count()
         return hall_capacity - sold_tickets
+
+    def get_taken_places(self, obj):
+        tickets = obj.tickets.all()
+        return [{"row": ticket.row, "seat": ticket.seat} for ticket in tickets]
 
 
 class PerformanceWriteSerializer(serializers.ModelSerializer):
