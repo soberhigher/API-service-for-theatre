@@ -1,7 +1,11 @@
 from datetime import datetime
 
-from rest_framework import viewsets, serializers
-from rest_framework.exceptions import MethodNotAllowed, ValidationError
+from rest_framework import (viewsets,
+                            serializers,
+                            )
+from rest_framework.exceptions import (MethodNotAllowed,
+                                       ValidationError,
+                                       )
 from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import (AllowAny,
                                         IsAuthenticated)
@@ -12,7 +16,7 @@ from theatre.models import (Play,
                             Genre,
                             TheatreHall,
                             Performance,
-                            Ticket
+                            Ticket,
                             )
 from theatre.permissions import IsAdminOrReadOnly
 from theatre.serializers import (PlayReadSerializer,
@@ -20,10 +24,11 @@ from theatre.serializers import (PlayReadSerializer,
                                  ActorSerializer,
                                  GenreSerializer,
                                  TheatreHallSerializer,
-    PerformanceReadSerializer,
-                                  PerformanceWriteSerializer,
-                                  RegistrationSerializer,
-                                  TicketSerializer, TicketPurchaseSerializer
+                                 PerformanceReadSerializer,
+                                 PerformanceWriteSerializer,
+                                 RegistrationSerializer,
+                                 TicketSerializer,
+                                 TicketPurchaseSerializer,
                                   )
 
 

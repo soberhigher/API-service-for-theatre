@@ -9,7 +9,7 @@ from theatre.models import (Play,
                             TheatreHall,
                             Performance,
                             Reservation,
-                            Ticket
+                            Ticket,
                             )
 
 from django.contrib.auth.models import User

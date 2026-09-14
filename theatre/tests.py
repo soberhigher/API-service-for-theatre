@@ -8,7 +8,7 @@ from theatre.models import (Actor,
                             Genre,
                             Play,
                             TheatreHall,
-                            Performance
+                            Performance,
                             )
 
 
