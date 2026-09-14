@@ -134,7 +134,7 @@ class PerformanceTests(APITestCase):
         data = {
             "play": self.play.id,
             "theatre_hall": self.theatre_hall.id,
-            "show_time": "2026-09-20T11:50:00Z",
+            "show_time": "2026-09-20T13:50:00Z",
         }
         response = self.client.post(url, data)
 
