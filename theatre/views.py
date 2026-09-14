@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.utils import timezone
 from rest_framework import (
     serializers,
     viewsets,
@@ -13,7 +14,6 @@ from rest_framework.permissions import (
     AllowAny,
     IsAuthenticated,
 )
-from django.utils import timezone
 
 from theatre.models import (
     Actor,
