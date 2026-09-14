@@ -88,10 +88,12 @@ class TheatreHallViewSet(viewsets.ModelViewSet):
 
 class PerformanceViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminOrReadOnly]
-    queryset = Performance.objects.all()
+    queryset = Performance.objects.select_related(
+        "play", "theatre_hall"
+    ).prefetch_related("tickets")
 
     def get_queryset(self):
-        queryset = Performance.objects.all()
+        queryset = self.queryset
         play_id = self.request.query_params.get("play")
 
         if play_id:
