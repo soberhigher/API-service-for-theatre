@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from rest_framework import viewsets, serializers
 from rest_framework.exceptions import MethodNotAllowed, ValidationError
 from rest_framework.generics import CreateAPIView
@@ -111,6 +113,11 @@ class PerformanceViewSet(viewsets.ModelViewSet):
                 raise ValidationError("Invalid theatre hall ID format")
 
         show_date = self.request.query_params.get("date")
+        if show_date:
+            try:
+                datetime.strptime(show_date, "%Y-%m-%d")
+            except ValueError:
+                raise ValidationError("Invalid date format. Use YYYY-MM-DD")
 
         if play_id:
             queryset = queryset.filter(play_id__in=play_id)
